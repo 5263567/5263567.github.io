@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Android 必备知识点浅谈 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInstan">
+  <meta name="description" content="##3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInst">
 <meta name="keywords" content="android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Android 必备知识点浅谈">
 <meta property="og:url" content="http://yoursite.com/2018/09/12/Android-必备知识点浅谈/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInstan">
+<meta property="og:description" content="##3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInst">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-12T07:17:24.548Z">
+<meta property="og:updated_time" content="2018-09-12T07:37:37.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Android 必备知识点浅谈">
-<meta name="twitter:description" content="3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInstan">
+<meta name="twitter:description" content="##3.1 AndroidActivityQ：说下Activity的生命周期？Q：onStart()和onResume()/onPause()和onStop()的区别？Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？Q：谈谈onSaveInstanceState()方法？何时会调用？Q：onSaveInst">
   
     <link rel="alternative" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -175,7 +175,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>3.1 Android<br>Activity<br>Q：说下Activity的生命周期？<br>Q：onStart()和onResume()/onPause()和onStop()的区别？<br>Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？<br>Q：谈谈onSaveInstanceState()方法？何时会调用？<br>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
+        <p>##3.1 Android<br>Activity<br>Q：说下Activity的生命周期？<br>Q：onStart()和onResume()/onPause()和onStop()的区别？<br>Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？<br>Q：谈谈onSaveInstanceState()方法？何时会调用？<br>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
 <p>Fragment<br>Q：谈一谈Fragment的生命周期？<br>Q：Activity和Fragment的异同？<br>Q：Activity和Fragment的关系？<br>Q：何时会考虑使用Fragment？</p>
 <p>Service<br>Q：谈一谈Service的生命周期？<br>Q：Service的两种启动方式？区别在哪？<br>Q：一个Activty先start一个Service后，再bind时会回调什么方法？此时如何做才能回调Service的destory()方法？<br>Q：Service如何和Activity进行通信？<br>Q：用过哪些系统Service？<br>Q：是否能在Service进行耗时操作？如果非要可以怎么做？<br>Q：AlarmManager能实现定时的原理？<br>Q：前台服务是什么？和普通服务的不同？如何去开启一个前台服务？<br>Q：是否了解ActivityManagerService，谈谈它发挥什么作用？<br>Q：如何保证Service不被杀死？</p>
 <p>Broadcast Receiver<br>Q：广播有几种形式？什么特点？<br>Q：广播的两种注册形式？区别在哪？</p>
