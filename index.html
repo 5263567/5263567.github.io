@@ -172,7 +172,21 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-Android"><a href="#1-Android" class="headerlink" title="1 Android"></a>1 Android</h2><p>Activity<br>Q：说下Activity的生命周期？<br>Q：onStart()和onResume()/onPause()和onStop()的区别？<br>Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？<br>Q：谈谈onSaveInstanceState()方法？何时会调用？<br>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
+        <h3 id="1-Android"><a href="#1-Android" class="headerlink" title="1 Android"></a>1 Android</h3><p>Activity<br>Q：Activity的生命周期？ </p>
+<pre><code>onCreate -&gt; onRestart(当重新可见时执行) -&gt; onStart -&gt; onResume -&gt; onPause -&gt; onStop -&gt; onDestroy    
+</code></pre><p>Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？</p>
+<pre><code>开始时，A被实例化，执行的回调有A:onCreate -&gt; A:onStart -&gt; A:onResume。
+当用户点击A中按钮来到B时，假设B全部遮挡住了A，将依次执行A:onPause -&gt; B:onCreate -&gt; B:onStart -&gt; B:onResume -&gt; A:onStop。
+如果B是透明的则不会执行A:onStop
+此时如果点击Back键，将依次执行B:onPause -&gt; A:onRestart -&gt; A:onStart -&gt; A:onResume -&gt; B:onStop -&gt; B:onDestroy。
+至此，Activity栈中只有A。在Android中，有两个按键在影响Activity生命周期这块需要格外区分下，即Back键和Home键。我们先直接看下实验结果：
+此时如果按下Back键，系统返回到桌面，并依次执行A:onPause -&gt; A:onStop -&gt; A:onDestroy。
+此时如果按下Home键（非长按），系统返回到桌面，并依次执行A:onPause -&gt; A:onStop。由此可见，Back键和Home键主要区别在于是否会执行onDestroy。
+
+如果是当前Activity弹出的dialog则不会执行Activity任何生命周期中的方法
+</code></pre><p>Q：onSaveInstanceState()方法？何时会调用？</p>
+<pre><code>onSaveInstanceState()
+</code></pre><p>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
 <p>Fragment<br>Q：谈一谈Fragment的生命周期？<br>Q：Activity和Fragment的异同？<br>Q：Activity和Fragment的关系？<br>Q：何时会考虑使用Fragment？</p>
 <p>Service<br>Q：谈一谈Service的生命周期？<br>Q：Service的两种启动方式？区别在哪？<br>Q：一个Activty先start一个Service后，再bind时会回调什么方法？此时如何做才能回调Service的destory()方法？<br>Q：Service如何和Activity进行通信？<br>Q：用过哪些系统Service？<br>Q：是否能在Service进行耗时操作？如果非要可以怎么做？<br>Q：AlarmManager能实现定时的原理？<br>Q：前台服务是什么？和普通服务的不同？如何去开启一个前台服务？<br>Q：是否了解ActivityManagerService，谈谈它发挥什么作用？<br>Q：如何保证Service不被杀死？</p>
 <p>Broadcast Receiver<br>Q：广播有几种形式？什么特点？<br>Q：广播的两种注册形式？区别在哪？</p>
@@ -189,17 +203,17 @@
 <p>性能优化<br>Q：项目中如何做性能优化的？<br>Q：了解哪些性能优化的工具？<br>Q：布局上如何优化？列表呢？<br>Q：内存泄漏是什么？为什么会发生？常见哪些内存泄漏的例子？都是怎么解决的？<br>Q：内存泄漏和内存溢出的区别？<br>Q：什么情况会导致内存溢出？</p>
 <p>谷歌新动态</p>
 <p>Q：是否了解和使用过谷歌推出的新技术？<br>Q：有了解刚发布的Androidx.0的特性吗？<br>Q：Kotlin对Java做了哪些优化？</p>
-<h2 id="2-Java"><a href="#2-Java" class="headerlink" title="2 Java"></a>2 Java</h2><p>基础<br>Q：面向对象编程的四大特性及其含义？<br>Q：String、StringBuffer和StringBuilder的区别？<br>Q：String a=””和String a=new String(“”)的的关系和异同？<br>Q：Object的equal()和==的区别？<br>Q：装箱、拆箱什么含义？<br>Q：int和Integer的区别？<br>Q：遇见过哪些运行时异常？异常处理机制知道哪些？<br>Q：什么是反射，有什么作用和应用？<br>Q：什么是内部类？有什么作用？静态内部类和非静态内部类的区别？<br>Q：final、finally、finalize()分别表示什么含义？<br>Q：重写和重载的区别？<br>Q：抽象类和接口的异同？<br>Q：为什么匿名内部类中使用局部变量要用final修饰？<br>Q：Object有哪些公用方法？</p>
+<h3 id="2-Java"><a href="#2-Java" class="headerlink" title="2 Java"></a>2 Java</h3><p>基础<br>Q：面向对象编程的四大特性及其含义？<br>Q：String、StringBuffer和StringBuilder的区别？<br>Q：String a=””和String a=new String(“”)的的关系和异同？<br>Q：Object的equal()和==的区别？<br>Q：装箱、拆箱什么含义？<br>Q：int和Integer的区别？<br>Q：遇见过哪些运行时异常？异常处理机制知道哪些？<br>Q：什么是反射，有什么作用和应用？<br>Q：什么是内部类？有什么作用？静态内部类和非静态内部类的区别？<br>Q：final、finally、finalize()分别表示什么含义？<br>Q：重写和重载的区别？<br>Q：抽象类和接口的异同？<br>Q：为什么匿名内部类中使用局部变量要用final修饰？<br>Q：Object有哪些公用方法？</p>
 <p>集合<br>Q：Java集合框架中有哪些类？都有什么特点<br>Q：集合、数组、泛型的关系，并比较<br>Q：ArrayList和LinkList的区别？<br>Q：ArrayList和Vector的区别？<br>Q：HashSet和TreeSet的区别？<br>Q：HashMap和Hashtable的区别？<br>Q：HashMap在put、get元素的过程？体现了什么数据结构？<br>Q：如何解决Hash冲突？<br>Q：如何保证HashMap线程安全？什么原理？<br>Q：HashMap是有序的吗？如何实现有序？<br>Q：HashMap是如何扩容的？如何避免扩容？<br>Q：hashcode()的作用，与equal()有什么区别？</p>
 <p>并发<br>Q：开启一个线程的方法有哪些？销毁一个线程的方法呢？<br>Q：同步和非同步、阻塞和非阻塞的概念<br>Q：Thread的join()有什么作用？<br>Q：线程的有哪些状态？<br>Q：什么是线程安全？保障线程安全有哪些手段？<br>Q：ReentrantLock和synchronized的区别?<br>Q：synchronized和volatile的区别？<br>Q：synchronized同步代码块还有同步方法本质上锁住的是谁？为什么？<br>Q：sleep()和wait()的区别？</p>
 <p>Java新动态<br>Q：是否了解Java1.x的特性吗？<br>Q：谈谈对面向过程编程、面向对象编程还有面向切面编程的理解</p>
-<h2 id="3-计算机网络"><a href="#3-计算机网络" class="headerlink" title="3 计算机网络"></a>3 计算机网络</h2><p>基础<br>Q：五层协议的体系结构分别是什么？每一层都有哪些协议？<br>Q：为何有MAC地址还要IP地址？</p>
+<h3 id="3-计算机网络"><a href="#3-计算机网络" class="headerlink" title="3 计算机网络"></a>3 计算机网络</h3><p>基础<br>Q：五层协议的体系结构分别是什么？每一层都有哪些协议？<br>Q：为何有MAC地址还要IP地址？</p>
 <p>TCP<br>Q：TCP和UDP的区别？<br>Q：拥塞控制和流量控制都是什么，两者的区别？<br>Q：谈谈TCP为什么要三次握手？为什么要四次挥手？<br>Q：播放视频用TCP还是UDP？为什么？</p>
 <p>HTTP<br>Q：了解哪些响应状态码？<br>Q：get和post的区别？<br>Q：Http1.0、Http1.1、Http2.0的区别？<br>Q：HTTP和TCP的区别?<br>Q：HTTP和HTTPS的区别?<br>Q：HTTP和Socket的区别?<br>Q：在地址栏打入<a href="http://www.baidu.com会发生什么？" target="_blank" rel="noopener">http://www.baidu.com会发生什么？</a></p>
-<h2 id="4-JVM"><a href="#4-JVM" class="headerlink" title="4 JVM"></a>4 JVM</h2><p>Q：JVM内存是如何划分的？<br>Q：谈谈垃圾回收机制？为什么引用计数器判定对象是否回收不可行？知道哪些垃圾回收算法？<br>Q：Java中引用有几种类型？在Android中常用于什么情景？<br>Q：类加载的全过程是怎样的？什么是双亲委派模型？<br>Q：工作内存和主内存的关系？在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？<br>Q：JVM、Dalvik、ART的区别？<br>Q：Java中堆和栈的区别？</p>
-<h2 id="5-数据结构-amp-算法"><a href="#5-数据结构-amp-算法" class="headerlink" title="5 数据结构&amp;算法"></a>5 数据结构&amp;算法</h2><p>Q：怎么理解数据结构？<br>Q：什么是斐波那契数列？<br>Q：迭代和递归的特点，并比较优缺点<br>Q：了解哪些查找算法，时间复杂度都是多少？<br>Q：了解哪些排序算法，并比较一下，以及适用场景<br>Q：快排的基本思路是什么？最差的时间复杂度是多少？如何优化？<br>Q：AVL树插入或删除一个节点的过程是怎样的？<br>Q：什么是红黑树？<br>Q：100盏灯问题<br>Q：老鼠和毒药问题，加个条件，必须要求第二天出结果<br>Q：海量数据问题<br>Q：（手写算法）二分查找<br>Q：（手写算法）反转链表<br>Q：（手写算法）用两个栈实现队列<br>Q：（手写算法）多线程轮流打印问题<br>Q：（手写算法）如何判断一个链有环/两条链交叉<br>Q：（手写算法）快速从一组无序数中找到第k大的数/前k个大的数<br>Q：（手写算法）最长（不）重复子串</p>
-<h2 id="6-设计模式"><a href="#6-设计模式" class="headerlink" title="6 设计模式"></a>6 设计模式</h2><p>Q：谈谈MVC、MVP和MVVM，好在哪里，不好在哪里？<br>Q：如何理解生产者消费者模型？<br>Q：是否能从Android中举几个例子说说用到了什么设计模式？<br>Q：装饰模式和代理模式有哪些区别？<br>Q：实现单例模式有几种方法？懒汉式中双层锁的目的是什么？两次判空的目的又是什么？<br>Q：谈谈了解的设计模式原则？</p>
-<h2 id="7-数据库"><a href="#7-数据库" class="headerlink" title="7 数据库"></a>7 数据库</h2><p>Q：数据库中的事务了解吗？事务的四大特性？<br>Q：如何理解数据库的范式？</p>
+<h3 id="4-JVM"><a href="#4-JVM" class="headerlink" title="4 JVM"></a>4 JVM</h3><p>Q：JVM内存是如何划分的？<br>Q：谈谈垃圾回收机制？为什么引用计数器判定对象是否回收不可行？知道哪些垃圾回收算法？<br>Q：Java中引用有几种类型？在Android中常用于什么情景？<br>Q：类加载的全过程是怎样的？什么是双亲委派模型？<br>Q：工作内存和主内存的关系？在Java内存模型有哪些可以保证并发过程的原子性、可见性和有序性的措施？<br>Q：JVM、Dalvik、ART的区别？<br>Q：Java中堆和栈的区别？</p>
+<h3 id="5-数据结构-amp-算法"><a href="#5-数据结构-amp-算法" class="headerlink" title="5 数据结构&amp;算法"></a>5 数据结构&amp;算法</h3><p>Q：怎么理解数据结构？<br>Q：什么是斐波那契数列？<br>Q：迭代和递归的特点，并比较优缺点<br>Q：了解哪些查找算法，时间复杂度都是多少？<br>Q：了解哪些排序算法，并比较一下，以及适用场景<br>Q：快排的基本思路是什么？最差的时间复杂度是多少？如何优化？<br>Q：AVL树插入或删除一个节点的过程是怎样的？<br>Q：什么是红黑树？<br>Q：100盏灯问题<br>Q：老鼠和毒药问题，加个条件，必须要求第二天出结果<br>Q：海量数据问题<br>Q：（手写算法）二分查找<br>Q：（手写算法）反转链表<br>Q：（手写算法）用两个栈实现队列<br>Q：（手写算法）多线程轮流打印问题<br>Q：（手写算法）如何判断一个链有环/两条链交叉<br>Q：（手写算法）快速从一组无序数中找到第k大的数/前k个大的数<br>Q：（手写算法）最长（不）重复子串</p>
+<h3 id="6-设计模式"><a href="#6-设计模式" class="headerlink" title="6 设计模式"></a>6 设计模式</h3><p>Q：谈谈MVC、MVP和MVVM，好在哪里，不好在哪里？<br>Q：如何理解生产者消费者模型？<br>Q：是否能从Android中举几个例子说说用到了什么设计模式？<br>Q：装饰模式和代理模式有哪些区别？<br>Q：实现单例模式有几种方法？懒汉式中双层锁的目的是什么？两次判空的目的又是什么？<br>Q：谈谈了解的设计模式原则？</p>
+<h3 id="7-数据库"><a href="#7-数据库" class="headerlink" title="7 数据库"></a>7 数据库</h3><p>Q：数据库中的事务了解吗？事务的四大特性？<br>Q：如何理解数据库的范式？</p>
 
       
 
