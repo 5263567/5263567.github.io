@@ -177,18 +177,17 @@
 <p>onCreate -&gt; onRestart(当重新可见时执行) -&gt; onStart -&gt; onResume -&gt; onPause -&gt; onStop -&gt; onDestroy    </p>
 </blockquote>
 <p>Q：Activity A启动另一个Activity B会回调哪些方法？如果Activity B是完全透明呢？如果启动的是一个Dialog呢？</p>
-<pre><code>开始时，A被实例化，执行的回调有A:onCreate -&gt; A:onStart -&gt; A:onResume。
-当用户点击A中按钮来到B时，假设B全部遮挡住了A，将依次执行A:onPause -&gt; B:onCreate -&gt; B:onStart -&gt; B:onResume -&gt; A:onStop。
-如果B是透明的则不会执行A:onStop
-此时如果点击Back键，将依次执行B:onPause -&gt; A:onRestart -&gt; A:onStart -&gt; A:onResume -&gt; B:onStop -&gt; B:onDestroy。
-至此，Activity栈中只有A。在Android中，有两个按键在影响Activity生命周期这块需要格外区分下，即Back键和Home键。我们先直接看下实验结果：
-此时如果按下Back键，系统返回到桌面，并依次执行A:onPause -&gt; A:onStop -&gt; A:onDestroy。
-此时如果按下Home键（非长按），系统返回到桌面，并依次执行A:onPause -&gt; A:onStop。由此可见，Back键和Home键主要区别在于是否会执行onDestroy。
-
-如果是当前Activity弹出的dialog则不会执行Activity任何生命周期中的方法
-</code></pre><p>Q：onSaveInstanceState()方法？何时会调用？</p>
-<pre><code>onSaveInstanceState()
-</code></pre><p>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
+<blockquote>
+<p>开始时，A被实例化，执行的回调有A:onCreate -&gt; A:onStart -&gt; A:onResume。<br>    当用户点击A中按钮来到B时，假设B全部遮挡住了A，将依次执行A:onPause -&gt; B:onCreate -&gt; B:onStart -&gt; B:onResume -&gt; A:onStop。<br>    如果B是透明的则不会执行A:onStop<br>    此时如果点击Back键，将依次执行B:onPause -&gt; A:onRestart -&gt; A:onStart -&gt; A:onResume -&gt; B:onStop -&gt; B:onDestroy。<br>    至此，Activity栈中只有A。在Android中，有两个按键在影响Activity生命周期这块需要格外区分下，即Back键和Home键。我们先直接看下实验结果：<br>    此时如果按下Back键，系统返回到桌面，并依次执行A:onPause -&gt; A:onStop -&gt; A:onDestroy。<br>    此时如果按下Home键（非长按），系统返回到桌面，并依次执行A:onPause -&gt; A:onStop。由此可见，Back键和Home键主要区别在于是否会执行onDestroy。</p>
+</blockquote>
+<blockquote>
+<p>如果是当前Activity弹出的dialog则不会执行Activity任何生命周期中的方法</p>
+</blockquote>
+<p>Q：onSaveInstanceState()方法？何时会调用？</p>
+<blockquote>
+<p>onSaveInstanceState()</p>
+</blockquote>
+<p>Q：onSaveInstanceState()与onPause()的区别？<br>Q：如何避免配置改变时Activity重建？<br>Q：优先级低的Activity在内存不足被回收后怎样做可以恢复到销毁前状态？<br>Q：说下Activity的四种启动模式？（有时会出个实际问题来分析返回栈中Activity的情况）<br>Q：谈谈singleTop和singleTask的区别以及应用场景<br>Q：onNewIntent()调用时机？<br>Q：了解哪些Activity启动模式的标记位？<br>Q：如何启动其他应用的Activity？<br>Q：Activity的启动过程？</p>
 <p>Fragment<br>Q：谈一谈Fragment的生命周期？<br>Q：Activity和Fragment的异同？<br>Q：Activity和Fragment的关系？<br>Q：何时会考虑使用Fragment？</p>
 <p>Service<br>Q：谈一谈Service的生命周期？<br>Q：Service的两种启动方式？区别在哪？<br>Q：一个Activty先start一个Service后，再bind时会回调什么方法？此时如何做才能回调Service的destory()方法？<br>Q：Service如何和Activity进行通信？<br>Q：用过哪些系统Service？<br>Q：是否能在Service进行耗时操作？如果非要可以怎么做？<br>Q：AlarmManager能实现定时的原理？<br>Q：前台服务是什么？和普通服务的不同？如何去开启一个前台服务？<br>Q：是否了解ActivityManagerService，谈谈它发挥什么作用？<br>Q：如何保证Service不被杀死？</p>
 <p>Broadcast Receiver<br>Q：广播有几种形式？什么特点？<br>Q：广播的两种注册形式？区别在哪？</p>
